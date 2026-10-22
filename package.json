@@ -1,0 +1,19 @@
+{
+  "name": "test-soap",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "calc:server": "tsx src/calculator/server.ts",
+    "calc:client": "tsx src/calculator/client.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "soap": "^1.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

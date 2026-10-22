@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="CalculatorService"
+    targetNamespace="http://devnova.com/calculator"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://devnova.com/calculator"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- 1. TYPES: los datos (XSD) -->
+  <types>
+    <xs:schema targetNamespace="http://devnova.com/calculator" elementFormDefault="qualified">
+      <xs:element name="AddRequest">
+        <xs:complexType><xs:sequence>
+          <xs:element name="a" type="xs:double"/>
+          <xs:element name="b" type="xs:double"/>
+        </xs:sequence></xs:complexType>
+      </xs:element>
+      <xs:element name="AddResponse">
+        <xs:complexType><xs:sequence>
+          <xs:element name="result" type="xs:double"/>
+        </xs:sequence></xs:complexType>
+      </xs:element>
+
+      <xs:element name="SubtractRequest">
+        <xs:complexType><xs:sequence>
+          <xs:element name="a" type="xs:double"/>
+          <xs:element name="b" type="xs:double"/>
+        </xs:sequence></xs:complexType>
+      </xs:element>
+      <xs:element name="SubtractResponse">
+        <xs:complexType><xs:sequence>
+          <xs:element name="result" type="xs:double"/>
+        </xs:sequence></xs:complexType>
+      </xs:element>
+
+      <xs:element name="DivideRequest">
+        <xs:complexType><xs:sequence>
+          <xs:element name="a" type="xs:double"/>
+          <xs:element name="b" type="xs:double"/>
+        </xs:sequence></xs:complexType>
+      </xs:element>
+      <xs:element name="DivideResponse">
+        <xs:complexType><xs:sequence>
+          <xs:element name="result" type="xs:double"/>
+        </xs:sequence></xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </types>
+
+  <!-- 2. MESSAGE: qué mensajes se intercambian -->
+  <message name="AddIn"><part name="parameters" element="tns:AddRequest"/></message>
+  <message name="AddOut"><part name="parameters" element="tns:AddResponse"/></message>
+  <message name="SubtractIn"><part name="parameters" element="tns:SubtractRequest"/></message>
+  <message name="SubtractOut"><part name="parameters" element="tns:SubtractResponse"/></message>
+  <message name="DivideIn"><part name="parameters" element="tns:DivideRequest"/></message>
+  <message name="DivideOut"><part name="parameters" element="tns:DivideResponse"/></message>
+
+  <!-- 3. PORTTYPE: la interfaz (operaciones) -->
+  <portType name="CalculatorPortType">
+    <operation name="Add">
+      <input message="tns:AddIn"/><output message="tns:AddOut"/>
+    </operation>
+    <operation name="Subtract">
+      <input message="tns:SubtractIn"/><output message="tns:SubtractOut"/>
+    </operation>
+    <operation name="Divide">
+      <input message="tns:DivideIn"/><output message="tns:DivideOut"/>
+    </operation>
+  </portType>
+
+  <!-- 4. BINDING: cómo viaja (SOAP 1.1, document/literal) -->
+  <binding name="CalculatorBinding" type="tns:CalculatorPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="Add">
+      <soap:operation soapAction="http://devnova.com/calculator/Add"/>
+      <input><soap:body use="literal"/></input>
+      <output><soap:body use="literal"/></output>
+    </operation>
+    <operation name="Subtract">
+      <soap:operation soapAction="http://devnova.com/calculator/Subtract"/>
+      <input><soap:body use="literal"/></input>
+      <output><soap:body use="literal"/></output>
+    </operation>
+    <operation name="Divide">
+      <soap:operation soapAction="http://devnova.com/calculator/Divide"/>
+      <input><soap:body use="literal"/></input>
+      <output><soap:body use="literal"/></output>
+    </operation>
+  </binding>
+
+  <!-- 5. SERVICE: dónde vive -->
+  <service name="CalculatorService">
+    <port name="CalculatorPort" binding="tns:CalculatorBinding">
+      <soap:address location="http://localhost:8000/calculator"/>
+    </port>
+  </service>
+</definitions>
