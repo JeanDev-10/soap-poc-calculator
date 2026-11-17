@@ -4,10 +4,11 @@
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "calc:server": "tsx src/calculator/server.ts",
+    "calc:server": "tsx src/calculator/main.ts",
     "calc:client": "tsx src/calculator/client.ts",
-    "lib:server": "tsx src/library/server.ts",
+    "lib:server": "tsx src/library/main.ts",
     "lib:client": "tsx src/library/client.ts",
+    "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^26.6.5",
     "tsx": "^4.23.15",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
   }
 }

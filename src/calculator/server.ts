@@ -3,8 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import * as soap from 'soap';
 
-const PORT = 8000;
-
 interface Operands {
   a: number;
   b: number;
@@ -35,13 +33,16 @@ const service = {
 
 const wsdl = fs.readFileSync(path.join(__dirname, 'calculator.wsdl'), 'utf8');
 
-const server = http.createServer((_req, res) => {
-  res.statusCode = 404;
-  res.end('Not Found');
-});
-
-server.listen(PORT, () => {
-  soap.listen(server, '/calculator', service, wsdl, () => {
-    console.log(`Calculator SOAP listo: http://localhost:${PORT}/calculator?wsdl`);
+/** Levanta el servicio en `port` (0 = puerto libre aleatorio). */
+export function startServer(port: number): Promise<http.Server> {
+  const server = http.createServer((_req, res) => {
+    res.statusCode = 404;
+    res.end('Not Found');
   });
-});
+
+  return new Promise((resolve) => {
+    server.listen(port, () => {
+      soap.listen(server, '/calculator', service, wsdl, () => resolve(server));
+    });
+  });
+}
