@@ -6,6 +6,8 @@
   "scripts": {
     "calc:server": "tsx src/calculator/server.ts",
     "calc:client": "tsx src/calculator/client.ts",
+    "lib:server": "tsx src/library/server.ts",
+    "lib:client": "tsx src/library/client.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
